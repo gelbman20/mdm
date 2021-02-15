@@ -15,3 +15,8 @@ export const getLocalStorageItem = (name) => {
   }
 }
 
+export const range = (start, end) => {
+  return [...Array(end).keys()].map(el => el + start)
+}
+
+export const limit = 10;

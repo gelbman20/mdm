@@ -3,13 +3,13 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-auto">
-          <a class="navbar-brand" href="#">Medium Clone</a>
+          <router-link class="navbar-brand" :to="{name: 'globalFeed'}">Medium Clone</router-link>
         </div>
 
         <div class="col">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'home' }" exact active-class="active">Home</router-link>
+              <router-link class="nav-link" :to="{ name: 'globalFeed' }" exact active-class="active">Home</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="newArticle" active-class="active">
