@@ -54,7 +54,7 @@
                 </router-link>
               </div>
               <div class="col text-right">
-                <a href="#" class="badge bg-soft-primary">tag name</a>
+                <mdm-tag-list :list="article.tagList"/>
               </div>
             </div>
           </div>
@@ -78,10 +78,12 @@ import { limit } from '@/helpers'
 import { stringify, parseUrl } from 'query-string'
 import MdmLoading from '@/components/Loading';
 import MdmErrorMessage from '@/components/ErrorMessage';
+import MdmTagList from '@/components/TagList';
 
 export default {
   name: 'mdm-feed',
   components: {
+    MdmTagList,
     MdmErrorMessage,
     MdmLoading,
     MdmPagination
@@ -106,6 +108,9 @@ export default {
     currentPage () {
       return Number(this.$route.query.page || '1')
     },
+    slug () {
+      return this.$route.params.slug
+    },
     baseUrl () {
       return this.$route.path
     },
@@ -116,6 +121,9 @@ export default {
   watch: {
     currentPage () {
       this.fetchFeed();
+    },
+    slug () {
+      this.fetchFeed();
     }
   },
   mounted () {
@@ -124,7 +132,6 @@ export default {
   methods: {
     fetchFeed () {
       const parsedUrl = parseUrl(this.apiUrl);
-      console.log(this.$route)
       const stringifiedParams = stringify({
         limit,
         offset: this.offset,

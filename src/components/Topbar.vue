@@ -12,7 +12,7 @@
               <router-link class="nav-link" :to="{ name: 'globalFeed' }" exact active-class="active">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="newArticle" active-class="active">
+              <router-link class="nav-link" :to="{ name: 'createArticle' }" active-class="active">
                 <span style="min-width: auto; padding-bottom: 0; line-height: inherit; font-size: inherit;" class="fe fe-plus"></span>
                 New Article
               </router-link>

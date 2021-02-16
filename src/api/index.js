@@ -16,11 +16,14 @@ const getTags = () => axios.get('/tags')
 // Article
 const getArticle = (slug) => axios.get(`/articles/${slug}`)
 
+const deleteArticle = (slug) => axios.delete(`/articles/${slug}`)
+
 export default {
   registerUser,
   loginUser,
   authorizationUser,
   getFeed,
   getTags,
-  getArticle
+  getArticle,
+  deleteArticle
 }
