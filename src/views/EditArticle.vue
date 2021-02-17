@@ -14,8 +14,7 @@
 </template>
 
 <script>
-import { actionTypes } from '@/store/modules/article';
-import { getterTypes } from '@/store/modules/article';
+import { actionTypes, getterTypes } from '@/store/modules/article';
 import MdmArticleForm from '@/components/ArticleForm';
 import { mapGetters } from 'vuex';
 
@@ -36,6 +35,17 @@ export default {
     ...mapGetters({
       isSubmitting: getterTypes.isLoading,
       validationErrors: getterTypes.error
+    })
+  },
+  created () {
+    this.$store.dispatch(actionTypes.getArticle, {
+      slug: this.$route.params.slug
+    })
+    .then((data) => {
+      this.initialValues.title = data.title;
+      this.initialValues.description = data.description;
+      this.initialValues.body = data.body;
+      this.initialValues.tagList = [...data.tagList];
     })
   },
   methods: {

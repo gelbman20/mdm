@@ -18,6 +18,8 @@ const getArticle = (slug) => axios.get(`/articles/${slug}`)
 
 const deleteArticle = (slug) => axios.delete(`/articles/${slug}`)
 
+const createArticle = (article) => axios.post('/articles', { article })
+
 export default {
   registerUser,
   loginUser,
@@ -25,5 +27,6 @@ export default {
   getFeed,
   getTags,
   getArticle,
-  deleteArticle
+  deleteArticle,
+  createArticle
 }

@@ -18,7 +18,7 @@
             <div class="col-auto">
               <div class="row align-items-center">
                 <div class="col-auto">
-                  <router-link :to="{name: 'userProfile', params: {slug: article.author.username}}">
+                  <router-link :to="{name: 'userProfile', params: { slug: article.author.username } }">
                     <div class="avatar avatar-sm">
                       <img :src="article.author.image" class="avatar-img rounded-circle" alt="">
                     </div>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="col" v-if="isAuthor">
-              <router-link class="btn btn-sm btn-info mr-3" :to="{ name: 'editArticle', params: { slug: article.slot } }">
+              <router-link class="btn btn-sm btn-info mr-3" :to="{ name: 'editArticle', params: { slug: article.slug } }">
                 <span class="fe fe-edit-2"></span>
                 Edit Article
               </router-link>
@@ -102,7 +102,7 @@
           </div>
 
           <div class="col-auto" v-if="isAuthor">
-            <router-link class="btn btn-sm btn-info mr-3" :to="{ name: 'editArticle', params: { slug: article.slot } }">
+            <router-link class="btn btn-sm btn-info mr-3" :to="{ name: 'editArticle', params: { slug: article.slug } }">
               <span class="fe fe-edit-2"></span>
               Edit Article
             </router-link>

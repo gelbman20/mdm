@@ -1,4 +1,5 @@
 import api from '@/api'
+import { transformErrors } from '@/helpers';
 
 export const mutationTypes = {
   getArticleStart: '[article] getArticleStart',
@@ -7,12 +8,17 @@ export const mutationTypes = {
 
   deleteArticleStart: '[article] deleteArticleStart',
   deleteArticleSuccess: '[article] deleteArticleSuccess',
-  deleteArticleFailed: '[article] deleteArticleFailed'
+  deleteArticleFailed: '[article] deleteArticleFailed',
+
+  createArticleStart: '[article] createArticleStart',
+  createArticleSuccess: '[article] createArticleSuccess',
+  createArticleFailed: '[article] createArticleFailed'
 }
 
 export const actionTypes = {
   getArticle: '[article] getArticle',
-  deleteArticle: '[article] deleteArticle'
+  deleteArticle: '[article] deleteArticle',
+  createArticle: '[article] createArticle'
 }
 
 export const getterTypes = {
@@ -42,12 +48,20 @@ export default {
       state.isLoading = false
       state.error = payload
     },
-    [mutationTypes.deleteArticleStart] (state) {
-      state.data = null
+    [mutationTypes.deleteArticleStart] (state) {},
+    [mutationTypes.deleteArticleSuccess] () {},
+    [mutationTypes.deleteArticleFailed] () {},
+    [mutationTypes.createArticleStart] (state) {
+      state.isLoading = true
       state.error = null
     },
-    [mutationTypes.deleteArticleSuccess] () {},
-    [mutationTypes.deleteArticleFailed] () {}
+    [mutationTypes.createArticleFailed] (state, payload) {
+      state.isLoading = false
+      state.error = payload
+    },
+    [mutationTypes.createArticleSuccess] (state) {
+      state.isLoading = false
+    }
   },
   actions: {
     [actionTypes.getArticle] (context, {slug}) {
@@ -76,6 +90,21 @@ export default {
         })
         .catch(() => {
           context.commit(mutationTypes.deleteArticleFailed)
+        })
+      })
+    },
+
+    [actionTypes.createArticle] (context, payload) {
+      return new Promise((resolve) => {
+        context.commit(mutationTypes.createArticleStart)
+
+        api.createArticle(payload)
+        .then((response) => {
+          context.commit(mutationTypes.createArticleSuccess)
+          resolve(response.data.article)
+        })
+        .catch((errors) => {
+          context.commit(mutationTypes.createArticleFailed, transformErrors(errors.response.data.errors))
         })
       })
     }
